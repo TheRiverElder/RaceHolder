@@ -26,6 +26,20 @@ public class RaceManager {
 
     protected List<RaceSlot> racePool = new ArrayList<>();
 
+    public List<RaceSlot> getRacePool() {
+        return racePool;
+    }
+
+    public List<Race> getRaces() {
+        List<Race> res = new ArrayList<>(racePool.size());
+        for (RaceSlot slot : racePool) {
+            if (!slot.isEmpty()) {
+                res.add(slot.race);
+            }
+        }
+        return res;
+    }
+
     protected int getOrAddEmptyRaceSlotIndex() {
         for (int i = 0; i < racePool.size(); i++) {
             if (racePool.get(i).isEmpty()) return i;

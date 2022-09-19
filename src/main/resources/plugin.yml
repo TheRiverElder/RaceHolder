@@ -5,9 +5,9 @@ api-version: 1.15
 authors: [ TheRiverElder ]
 description: A simple plugin to hold and run a race.
 commands:
-  raceholder: #指令名
-    description: "用于规划与组织跑道类赛事" #指令的注解
-    usage: /raceholder #指令的用法 当onCommand()方法返回false时提示这里的内容
-    aliases: [rh] #指令的多种形式 意为可以用 d, de 来触发/demo这个指令
-    permission: "raceholder.use" #指令所需要的权限
-    permission-message: "无权使用比赛规划指令" #当输入者无上方权限时提示该信息
+  raceholder:
+    description: "用于规划与组织跑道类赛事"
+    usage: /raceholder
+    aliases: [rh]
+    permission: "raceholder.use"
+    permission-message: "无权使用比赛规划指令"

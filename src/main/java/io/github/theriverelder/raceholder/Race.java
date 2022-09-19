@@ -19,7 +19,7 @@ public class Race {
             ;
         }
 
-        public static int PROGRESS_NONE = -1;
+        public static int PROGRESS_NONE = 0;
         public static int RANK_NONE = -1;
 
         public UUID uuid;
@@ -119,11 +119,11 @@ public class Race {
                     status = Status.WAITING;
                 } else if (startCountDown > 0) {
                     if (startCountDown % 20 == 0) {
-                        broadcastToParticipants("倒计时" + (startCountDown / 20) + "秒");
+                        broadcastTitleToParticipants("倒计时" + (startCountDown / 20) + "秒");
                     }
                     startCountDown--;
                 } else {
-                    broadcastToParticipants("开始！");
+                    broadcastTitleToParticipants("开始！");
                     rankCounter = 0;
                     participants.forEach(it -> {
                         it.status = Participant.Status.RUNNING;
@@ -138,7 +138,7 @@ public class Race {
                 if (checkFinished()) {
                     status = Status.NONE;
                     Optional<Participant> winner = participants.stream().filter(it -> it.rank == 0).findFirst();
-                    broadcastToParticipants("比赛结束，获胜者是" + (winner.isPresent() ? winner.get() : "???") + "");
+                    broadcastMessageToParticipants("比赛结束，获胜者是" + (winner.map(participant -> (participant.player != null) ? participant.player.getName() : null).orElse("???")) + "");
 
                     participants.forEach(it -> {
                         it.status = Participant.Status.WAITING;
@@ -156,16 +156,21 @@ public class Race {
             participant.status = Participant.Status.OFF;
             return;
         }
-        if (participant.progress < waypoints.size()) {
+        if (participant.progress >= 0 && participant.progress < waypoints.size()) {
             Vector nextWaypoint = waypoints.get(participant.progress);
             double distanceSquared = player.getLocation().toVector().distanceSquared(nextWaypoint);
             if (distanceSquared < 8 * 8) {
+                if (participant.progress > 0) {
+                    sendMessageToParticipant(participant, "里程点：" + (participant.progress) + "/" + (waypoints.size() - 1));
+                }
                 participant.progress++;
             }
         }
         if (participant.progress >= waypoints.size()) {
             participant.rank = rankCounter++;
-            sendToParticipant(participant, "完成赛程，你是第" + (participant.rank + 1) + "名");
+            String message = "完成赛程，你是第" + (participant.rank + 1) + "名";
+            sendTitleToParticipant(participant, message);
+            sendMessageToParticipant(participant, message);
         }
     }
 
@@ -191,17 +196,27 @@ public class Race {
         }
     }
 
-    protected void broadcastToParticipants(String message) {
-        participants.forEach(it -> sendToParticipant(it, message));
+    protected void broadcastTitleToParticipants(String message) {
+        participants.forEach(it -> sendTitleToParticipant(it, message));
     }
 
-    protected void sendToParticipant(Participant participant, String message) {
-        sendToParticipant(participant, message, null);
+    protected void broadcastMessageToParticipants(String message) {
+        participants.forEach(it -> sendMessageToParticipant(it, message));
     }
 
-    protected void sendToParticipant(Participant participant, String message, String secondaryMessage) {
+    protected void sendTitleToParticipant(Participant participant, String message) {
+        sendTitleToParticipant(participant, message, null);
+    }
+
+    protected void sendTitleToParticipant(Participant participant, String message, String secondaryMessage) {
         Player player = participant.player;
         if (player == null) return;
         player.sendTitle(message, secondaryMessage, 5, 20, 5);
+    }
+
+    protected void sendMessageToParticipant(Participant participant, String message) {
+        Player player = participant.player;
+        if (player == null) return;
+        player.sendMessage(message);
     }
 }
