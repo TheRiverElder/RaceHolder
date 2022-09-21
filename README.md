@@ -41,16 +41,16 @@ raceIndex：赛事编号。
 waypointIndex：要移除的路径点的索引。
 返回：被移除的路径点。
 
-## race
-`/raceholder race <raceIndex> join`
+## raceRuntime
+`/raceholder raceRuntime <raceIndex> join`
 加入赛事。
 raceIndex：赛事编号。
 
-`/raceholder race <raceIndex> quit`
+`/raceholder raceRuntime <raceIndex> quit`
 退出赛事。
 raceIndex：赛事编号。
 
-`/raceholder race <raceIndex> ready`
+`/raceholder raceRuntime <raceIndex> ready`
 在赛事中表示准备好。
 raceIndex：赛事编号。
 
@@ -74,9 +74,9 @@ raceIndex：赛事编号。
 已添加路径点：2(7, 8, 9)
 
 （选手部分）
-/raceholder race 0 join
+/raceholder raceRuntime 0 join
 已加入赛事：0
-/raceholder race 0 ready
+/raceholder raceRuntime 0 ready
 准备好！
 
 （所有人都准备好后）

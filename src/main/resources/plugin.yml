@@ -1,13 +1,162 @@
 name: RaceHolder
 version: '${project.version}'
-main: io.github.theriverelder.raceholder.RaceHolder
+main: io.github.theriverelder.checkpointx.CheckpointX
 api-version: 1.15
 authors: [ TheRiverElder ]
 description: A simple plugin to hold and run a race.
 commands:
-  raceholder:
-    description: "用于规划与组织跑道类赛事"
-    usage: /raceholder
-    aliases: [rh]
-    permission: "raceholder.use"
-    permission-message: "无权使用比赛规划指令"
+  checkpointx:
+    description: "赛事规划指令集"
+    aliases: ["cpx"]
+    usage: |
+      /checkpointx list [username]
+      /checkpointx listall
+      /checkpointx listreview
+      /checkpointx listrefuse
+      /checkpointx enter [racename] [type:new/follow/watch]
+      /checkpointx setout [num]
+      /checkpointx leave
+      /checkpointx ready
+      /checkpointx start
+      /checkpointx respawn
+      /checkpointx create [racename]
+      /checkpointx typeset [type:walk/boat/horse/pig]
+      /checkpointx description [racename] [description]
+      /checkpointx edit [racename]
+      /checkpointx end
+      /checkpointx pull [racename]
+      /checkpointx review [racename]
+      /checkpointx reason [racename]
+      /checkpointx pass [racename] [reason]
+      /checkpointx refuse [racename]
+      /checkpointx setdes [racename] [description]
+      /checkpointx setrea [racename] [reason]
+      /checkpointx setava [t\f]
+  "checkpointx list":
+    description: "查看指定玩家建立的差事列表（用绿黄红蓝颜色标记出P\E\U\W）"
+    permission: "checkpointx.list"
+    permission-message: "你需要以下权限：checkpointx.list"
+    usage: "/checkpointx list [username]"
+  "checkpointx listall":
+    description: "查看全服已过审差事列表"
+    permission: "checkpointx.list"
+    permission-message: "你需要以下权限：checkpointx.list"
+    usage: "/checkpointx listall"
+  "checkpointx listreview":
+    description: "查看全服待审核差事列表"
+    permission: "checkpointx.list"
+    permission-message: "你需要以下权限：checkpointx.list"
+    usage: "/checkpointx listreview"
+  "checkpointx listrefuse":
+    description: "查看全服未过审差事列表"
+    permission: "checkpointx.list"
+    permission-message: "你需要以下权限：checkpointx.list"
+    usage: "/checkpointx listrefuse"
+  "checkpointx enter":
+    description: "以新建战局、寻找现有、旁观现有方式加入战局"
+    permission: "checkpointx.enter"
+    permission-message: "你需要以下权限：checkpointx.enter"
+    usage: "/checkpointx enter <racename> <type:new/follow/watch>"
+  "checkpointx setout":
+    description: "房主设置强制结束时间，默认为60（单位秒）关闭则设为0"
+    permission: "checkpointx.enter"
+    permission-message: "你需要以下权限：checkpointx.enter"
+    usage: "/checkpointx setout [num]"
+  "checkpointx leave":
+    description: "离开正在进行的战局"
+    permission: "checkpointx.enter"
+    permission-message: "你需要以下权限：checkpointx.enter"
+    usage: "/checkpointx leave"
+  "checkpointx ready":
+    description: "进入战局准备态"
+    permission: "checkpointx.enter"
+    permission-message: "你需要以下权限：checkpointx.enter"
+    usage: "/checkpointx ready"
+  "checkpointx start":
+    description: "启动战局"
+    permission: "checkpointx.enter"
+    permission-message: "你需要以下权限：checkpointx.enter"
+    usage: "/checkpointx start"
+  "checkpointx respawn":
+    description: "回到上个检查点（若玩家死亡也应回到上个检查点）"
+    permission: "checkpointx.enter"
+    permission-message: "你需要以下权限：checkpointx.enter"
+    usage: "/checkpointx respawn"
+  "checkpointx create":
+    description: "新建一个差事并立即进入编辑状态"
+    permission: "checkpointx.create"
+    permission-message: "你需要以下权限：checkpointx.create"
+    usage: "/checkpointx create <racename>"
+  "checkpointx typeset":
+    description: "设置一个可编辑差事的行进检查模式"
+    permission: "checkpointx.create"
+    permission-message: "你需要以下权限：checkpointx.create"
+    usage: "/checkpointx typeset [racename] <type:walk/boat/horse/pig>"
+  "checkpointx description":
+    description: "修改一个可编辑差事的描述"
+    permission: "checkpointx.create"
+    permission-message: "你需要以下权限：checkpointx.create"
+    usage: "/checkpointx description [racename] <description>"
+  "checkpointx edit":
+    description: "重新进入一个差事的编辑状态"
+    permission: "checkpointx.create"
+    permission-message: "你需要以下权限：checkpointx.create"
+    usage: "/checkpointx dit <racename>"
+  "checkpointx end":
+    description: "结束当前编辑状态"
+    permission: "checkpointx.create"
+    permission-message: "你需要以下权限：checkpointx.create"
+    usage: "/checkpointx end"
+  "checkpointx pull":
+    description: "将指定差事提交审核"
+    permission: "checkpointx.create"
+    permission-message: "你需要以下权限：checkpointx.create"
+    usage: "/checkpointx pull [racename]"
+  "checkpointx review":
+    description: "试玩指定差事（即启动战局，但该战局含有特殊标签，从而禁止他人进入，管理员除外）"
+    permission: "checkpointx.create"
+    permission-message: "你需要以下权限：checkpointx.create"
+    usage: "/checkpointx review [racename]"
+  "checkpointx reason":
+    description: "查看管理员留下的指定差事的意见"
+    permission: "checkpointx.create"
+    permission-message: "你需要以下权限：checkpointx.create"
+    usage: "/checkpointx reason [racename]"
+  "checkpointx pass":
+    description: "以指定原因过审指定差事"
+    permission: "checkpointx.admin"
+    permission-message: "你需要以下权限：checkpointx.admin"
+    usage: "/checkpointx pass [racename] [reason]"
+  "checkpointx refuse":
+    description: "以指定原因拒绝过审某差事"
+    permission: "checkpointx.admin"
+    permission-message: "你需要以下权限：checkpointx.admin"
+    usage: "/checkpointx refuse [racename]"
+  "checkpointx setdes":
+    description: "修改指定差事的描述"
+    permission: "checkpointx.admin"
+    permission-message: "你需要以下权限：checkpointx.admin"
+    usage: "/checkpointx setdes [racename] [description]"
+  "checkpointx setrea":
+    description: "修改指定差事的原因"
+    permission: "checkpointx.admin"
+    permission-message: "你需要以下权限：checkpointx.admin"
+    usage: "/checkpointx setrea [racename] [reason]"
+  "checkpointx setava":
+    description: "开关指定差事"
+    permission: "checkpointx.admin"
+    permission-message: "你需要以下权限：checkpointx.admin"
+    usage: "/checkpointx setava [racename] [t\f]"
+permissions:
+  checkpointx.list:
+    description: "遍历权限"
+    default: op
+  checkpointx.enter:
+    description: "允许加入差事"
+    default: true
+  checkpointx.create:
+    description: "允许创建差事"
+    default: op
+  checkpointx.admin:
+    description: "管理员权限"
+    default: op

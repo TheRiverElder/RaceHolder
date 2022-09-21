@@ -1,6 +1,9 @@
-package io.github.theriverelder.raceholder.model;
+package io.github.theriverelder.checkpointx.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RaceData {
 
@@ -28,7 +31,7 @@ public class RaceData {
 
     public static final String STATE_PASSED = "P";
     public static final String STATE_EDITING = "E";
-    public static final String STATE_UNUSED = "U";
+    public static final String STATE_UNPASSED = "U";
     public static final String STATE_WAITING = "W";
 
     public static final String RACETYPE_WALK = "walk";
@@ -36,14 +39,39 @@ public class RaceData {
     public static final String RACETYPE_HORSE = "horse";
     public static final String RACETYPE_PIG = "pig";
 
+    public RaceData(String author, String state, String description, String reason, boolean available, String racetype, Map<Integer, RaceAward> raceaward, List<CheckpointData> checkpoints, Map<Integer, Record> record) {
+        this.author = author;
+        this.state = state;
+        this.description = description;
+        this.reason = reason;
+        this.available = available;
+        this.racetype = racetype;
+        this.raceaward = raceaward;
+        this.checkpoints = checkpoints;
+        this.record = record;
+    }
+
+    public RaceData() {
+        this.author = "";
+        this.state = STATE_EDITING;
+        this.description = "无描述";
+        this.reason = "";
+        this.available = false;
+        this.racetype = RACETYPE_BOAT;
+        this.raceaward = new HashMap<>();
+        this.checkpoints = new ArrayList<>();
+        this.record = new HashMap<>();
+    }
+
     protected String author;
     protected String state;
     protected String description;
+    protected String reason;
     protected boolean available;
     protected String racetype;
-    protected List<RaceAward> raceaward;
-    protected List<CheckPointData> checkpoints;
-    protected List<Record> record;
+    protected Map<Integer, RaceAward> raceaward;
+    protected List<CheckpointData> checkpoints;
+    protected Map<Integer, Record> record;
 
     public String getAuthor() {
         return author;
@@ -69,6 +97,14 @@ public class RaceData {
         this.description = description;
     }
 
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
     public boolean isAvailable() {
         return available;
     }
@@ -85,27 +121,27 @@ public class RaceData {
         this.racetype = racetype;
     }
 
-    public List<RaceAward> getRaceaward() {
+    public Map<Integer, RaceAward> getRaceaward() {
         return raceaward;
     }
 
-    public void setRaceaward(List<RaceAward> raceaward) {
+    public void setRaceaward(Map<Integer, RaceAward> raceaward) {
         this.raceaward = raceaward;
     }
 
-    public List<CheckPointData> getCheckpoints() {
+    public List<CheckpointData> getCheckpoints() {
         return checkpoints;
     }
 
-    public void setCheckpoints(List<CheckPointData> checkpoints) {
+    public void setCheckpoints(List<CheckpointData> checkpoints) {
         this.checkpoints = checkpoints;
     }
 
-    public List<Record> getRecord() {
+    public Map<Integer, Record> getRecord() {
         return record;
     }
 
-    public void setRecord(List<Record> record) {
+    public void setRecord(Map<Integer, Record> record) {
         this.record = record;
     }
 }

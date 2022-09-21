@@ -1,4 +1,4 @@
-package io.github.theriverelder.raceholder;
+package io.github.theriverelder.checkpointx;
 
 import org.bukkit.util.Vector;
 

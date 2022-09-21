@@ -1,4 +1,4 @@
-package io.github.theriverelder.raceholder;
+package io.github.theriverelder.checkpointx;
 
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -7,7 +7,7 @@ import org.bukkit.util.Vector;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Race {
+public class RaceRuntime {
 
     static class Participant {
 

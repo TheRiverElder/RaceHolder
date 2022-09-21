@@ -1,6 +1,6 @@
-package io.github.theriverelder.raceholder.model;
+package io.github.theriverelder.checkpointx.model;
 
-public class CheckPointData {
+public class CheckpointData {
     int x;
     int y;
     int z;

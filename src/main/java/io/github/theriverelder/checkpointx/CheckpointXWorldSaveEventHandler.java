@@ -1,7 +1,6 @@
-package io.github.theriverelder.raceholder;
+package io.github.theriverelder.checkpointx;
 
 import org.bukkit.World;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldSaveEvent;
@@ -9,12 +8,12 @@ import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 
-public class RaceHolderWorldSaveEventHandler implements Listener {
+public class CheckpointXWorldSaveEventHandler implements Listener {
 
     protected Plugin plugin;
     protected RaceManager raceManager;
 
-    public RaceHolderWorldSaveEventHandler(Plugin plugin, RaceManager raceManager) {
+    public CheckpointXWorldSaveEventHandler(Plugin plugin, RaceManager raceManager) {
         this.plugin = plugin;
         this.raceManager = raceManager;
     }
